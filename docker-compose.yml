@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   ecomm:
+    # caso não houver a imagem localmente ou no dockerHub, uitliza-se o build
     build: .
     # definindo o nome da imagem do build
     image: ecomm:1.0
