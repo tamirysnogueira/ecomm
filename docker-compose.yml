@@ -5,4 +5,23 @@ services:
     build: .
     # definindo o nome da imagem do build
     image: ecomm:1.0
+  
+  mongo-ecomm:
+    image: mongo
+    container_name: mongo-ecomm
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin 
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    ports:
+      - 27017:27017
+    volumes:
+      - db-mongo-ecomm:/app
+      - type: bind
+        source: $HOST/C:/alura/sprints/sprint2/ecomm/mongo
+        target: /mongo-scripts
+
+
+volumes:
+  db-mongo-ecomm:
       
