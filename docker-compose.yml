@@ -14,7 +14,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - db-mongo-ecomm:/app
+      - db-mongo-ecomm:/data/db
       - type: bind
         source: $HOST/C:/alura/sprints/sprint2/ecomm/mongo
         target: /mongo-scripts
