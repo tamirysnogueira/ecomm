@@ -1,7 +1,9 @@
 use("ecomm");
 
-const indexResultOfCategoria = db.categories.createIndex({ categoria: 1 })
-const indexResultOfNome = db.categories.createIndex({ nome: 1 })
+const indexOfCategoria = db.categories.createIndex({ categoria: 1 })
+const indexOfNome = db.categories.createIndex({ nome: 1 })
+const indexOfPreco = db.categories.createIndex({ preco: 1 })
 
-console.log(indexResultOfCategoria)
-console.log(indexResultOfNome)
+console.log(indexOfCategoria)
+console.log(indexOfNome)
+console.log(indexOfPreco)

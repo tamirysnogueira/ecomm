@@ -2,8 +2,8 @@ use('ecomm')
 
 const categoriesBooksAndCellPhones = db.products.find(
     {$or:[
-        {"CATEGORIA": "LIVROS"},
-        {"CATEGORIA": "CELULARES"}
+        {"categoria": "LIVROS"},
+        {"categoria": "CELULARES"}
     ]}
 )
 

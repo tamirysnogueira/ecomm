@@ -1,25 +1,13 @@
 use('ecomm')
 
-const priceOfProducts = {
-    $and: [
-        {
-            "PREÇO UNITÁRIO": {$gte: 1000}
-        },
-        {
-            "PREÇO UNITÁRIO": {$lte: 2000}
-        }
-    ],
-}
-
-const descriptionOfProducts = {
-    _id: 1, 
-    "NOME": 1, 
-    "PREÇO UNITÁRIO": 1
-}
-
 const result = db.products.find(
-    priceOfProducts,
-    descriptionOfProducts
+    {
+        $and: [
+            {"preco": {$gte: 1000}},
+            {"preco": {$lte: 2000}}
+        ]
+    },
+    {_id: 1, "nome": 1, "preco": 1}
 )
 
 console.log(result)
