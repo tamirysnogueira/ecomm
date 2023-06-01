@@ -2,6 +2,14 @@ use('ecomm')
 
 const productsJSON = require('./products/ecomm-products.json')
 
-const result = db.products.insertMany(productsJSON)
+productsJSON.forEach((product) => {
+    if(Object.hasOwn(product, 'preco')) {
+        const tranformPriceToDecimal = NumberDecimal(product.preco.toFixed(2))
+        product.preco = tranformPriceToDecimal
+    }
+    
+})
 
-console.log(result)
+const insertProductsInDb = db.products.insertMany(productsJSON)
+
+console.log(insertProductsInDb)
