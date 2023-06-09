@@ -5,8 +5,12 @@ db.createCollection("accounts", {
        $jsonSchema: {
           bsonType: "object",
           title: "Conta do usuário",
-          required: [ "nome", "email", "senha", "dataCriacao", "cpf", "telefone", "endereco" ],
+          required: [ "nome", "email", "senha", "dataCriacao", "cpf", "telefone", "endereco", "_id" ],
           properties: {
+            _id: {
+               description: 'Identificador único para cada conta',
+               bsonType: 'objectId'
+             },
              nome: {
                 bsonType: "string",
                 description: "Insira o nome do usuário",

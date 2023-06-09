@@ -8,7 +8,8 @@ const fieldsRequired = [
     "descricao",
     "slug",
     "estoque",
-    "categoria"
+    "categoria",
+    "preco"
 ]
 
 products.forEach( product => {

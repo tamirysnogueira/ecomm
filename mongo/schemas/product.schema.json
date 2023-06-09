@@ -24,8 +24,8 @@
         },
         "estoque": {
             "description": "Estoque do produto",
-            "type": "string",
-            "minimum": 0
+            "type": "int",
+            "minimum": 0    
         },
         "categoria": {
             "description": "Categoria do produto",
