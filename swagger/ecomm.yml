@@ -1,0 +1,84 @@
+openapi: 3.0.1
+info: 
+  title: API Ecomm
+  description: API para consultar dados de pedidos no ecomm
+  version: 0.0.1
+  contact:
+    name: Suporte a devs
+    email: contato@ecomm.com
+servers:
+- url: http://localhost:3000/
+  description: API Ecomm
+paths:
+  /categories:
+    get:
+      summary: Lista todos os produtos do Ecomm
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    status:
+                      type: string
+        404:
+          description: 'Erro. Não foi achado nenhum produto'
+          content:
+            application/json:
+              example: "Not found"
+  /admin/categories:
+    post:
+      summary: Criar novo produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    status:
+                      type: string
+  /categories/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      summary: Lista o produto pelo Id
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  status:
+                    type: string
