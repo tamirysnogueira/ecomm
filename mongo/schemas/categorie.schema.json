@@ -1,0 +1,26 @@
+{
+    "title": "Categorias",
+    "description": "Lista de categorias ativas e inativas",
+    "type": "object",
+    "properties": {
+        "_id": {
+            "description": "Identificador único para cada categoria",
+            "bsonType": "objectId"
+        },
+        "nome": {
+            "description": "Nome da categoria",
+            "type": "string",
+            "minLength":3
+        },
+        "status": {
+            "description": "Status da categoria",
+            "enum": ["ATIVA", "INATIVA"]
+        }
+    },
+    "required": [
+        "_id", 
+        "nome",
+        "status"
+    ],
+    "additionalProperties": false
+}

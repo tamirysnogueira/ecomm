@@ -1,0 +1,44 @@
+{
+    "title": "Produtos",
+    "description": "Lista de produtos",
+    "type": "object",
+    "properties": {
+        "_id": {
+            "description": "Identificador único para cada produto",
+            "bsonType": "objectId"
+        },
+        "nome": {
+            "description": "Nome do produto",
+            "type": "string",
+            "minLength":5
+        },
+        "descricao": {
+            "description": "Descrição do produto",
+            "type": "string",
+            "minLength": 10
+        },
+        "slug": {
+            "description": "Slug do produto",
+            "type": "string",
+            "minLength": 5
+        },
+        "estoque": {
+            "description": "Estoque do produto",
+            "type": "int",
+            "minimum": 0    
+        },
+        "categoria": {
+            "description": "Categoria do produto",
+            "enum": ["AUTOMOTIVA", "CELULARES", "INFORMÁTICA", "LIVROS", "MÓVEIS"]
+        }
+    },
+    "required": [
+        "_id", 
+        "nome",
+        "descricao",
+        "slug",
+        "estoque",
+        "categoria"
+    ],
+    "additionalProperties": false
+}

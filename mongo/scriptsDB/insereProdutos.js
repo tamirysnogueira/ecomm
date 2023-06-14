@@ -1,6 +1,6 @@
 use('ecomm') 
 
-const productsJSON = require('./products/ecomm-products.json')
+const productsJSON = require('../products/ecomm-products.json')
 
 productsJSON.forEach((product) => {
     if(Object.hasOwn(product, 'preco')) {
