@@ -1,43 +1,37 @@
-use('ecomm')
+use('ecomm');
 
-const products = db.products.find()
+const products = db.products.find();
 
 const fieldsRequired = [
-    "_id", 
-    "nome",
-    "descricao",
-    "slug",
-    "estoque",
-    "categoria",
-    "preco"
-]
+  '_id',
+  'nome',
+  'descricao',
+  'slug',
+  'estoque',
+  'categoria',
+  'preco',
+];
 
-products.forEach( product => {
+products.forEach((product) => {
+  const fieldsOfProduct = Object.keys(product);
 
-    const fieldsOfProduct = Object.keys(product)
+  // Verifica se há campos não requisitados, se houver esse tipo de campo
+  // irá excluir do produto
 
-    //Verifica se há campos não requisitados, se houver esse tipo de campo
-    //irá excluir do produto
-    
-    for (const fieldOfProduct of fieldsOfProduct) {
-        if(!fieldsRequired.includes(fieldOfProduct)) {
+  fieldsOfProduct.forEach((fieldOfProduct) => {
+    if (!fieldsRequired.includes(fieldOfProduct)) {
+      const updateOperation = {
+        $unset: {
+          [fieldOfProduct]: '',
+        },
+      };
 
-            const updateOperation = {
-                $unset: {
-                    [fieldOfProduct]: ""
-                }
-            }
+      const updatedField = db.products.updateMany(
+        { },
+        updateOperation,
+      );
 
-            const updatedField = db.products.updateMany(
-                { },
-                updateOperation
-            )
-
-            console.log(updatedField)
-        }
+      console.log(updatedField);
     }
-    
+  });
 });
-
-
-
