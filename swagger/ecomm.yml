@@ -19,7 +19,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Categories"
+                type: array
+                items:  
+                  $ref: "#/components/schemas/Categorie"
+                    
         404:
           $ref: "#/components/responses/404NaoEncontrado"
       tags: 
@@ -42,7 +45,9 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: "#/components/schemas/Categories"
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Categorie"
       tags: 
         - Categories
         
@@ -117,13 +122,52 @@ paths:
   /api/produtos:
     get:
       summary: Lista todos os produtos do Ecomm
+      parameters:
+        - name: idProduct
+          in: query
+          description: Id do produto
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: minPriceOfProduct
+          in: query
+          description: Preço mínimo do produto
+          required: false
+          schema:
+            type: number
+            format: double
+        - name: maxPriceOfProduct
+          in: query
+          description: Preço máximo do produto
+          required: false
+          schema:
+            type: number
+            format: double
+        - name: minStockOfProduct
+          in: query
+          description: Estoque minímo do produto
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Categories"
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        _id:
+                          type: string
+                          format: uuid
+                        dataPedido:
+                          type: string
+                          format: date
+                    - $ref: "#/components/schemas/Product"
         404:
           $ref: "#/components/responses/404NaoEncontrado"
       tags: 
@@ -144,7 +188,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Categories"
+                allOf:
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: uuid
+                      dataPedido:
+                        type: string
+                        format: date
+                  - $ref: "#/components/schemas/Product"
+       
         404:
           $ref: "#/components/responses/404NaoEncontrado"
       tags: 
@@ -164,7 +218,9 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: "#/components/schemas/Products"
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Product"
       tags: 
         - Products
   
@@ -224,7 +280,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Users"
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        _id:
+                          type: string
+                          format: uuid
+                    - $ref: "#/components/schemas/User"
         404:
           $ref: "#/components/responses/404NaoEncontrado"
       tags: 
@@ -276,7 +340,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                allOf:
+                  - type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: uuid
+                  - $ref: "#/components/schemas/User"
         404:
           $ref: "#/components/responses/404NaoEncontrado"
       tags: 
@@ -331,16 +401,12 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
         nome:
           type: string
         status:
           type: string
-    Categories:
-      type: array
-      items: 
-        $ref: "#/components/schemas/Categorie"
-        
     
     Product:
       type: object
@@ -358,12 +424,23 @@ components:
           type: integer
         categoria:
             $ref: "#/components/schemas/Categorie"
-    Products:
-      type: array
-      items:
-        $ref: "#/components/schemas/Product"
+    
+    Adress:
+      type: object
+      properties:
+        ruaEndereco:
+          type: string
+        numeroEndereco:
+          type: string
+        complementoEndereco:
+          type: string
+        cepEndereco:
+          type: string
+        cidadeEndereco:
+          type: string
+        UFEndereco:
+          type: string
               
-          
     User:
       type: object
       properties:
@@ -377,47 +454,25 @@ components:
           type: string
         telefone:
           type: string
-        ruaEndereco:
-          type: string
-        numeroEndereco:
-          type: string
-        complementoEndereco:
-          type: string
-        cepEndereco:
-          type: string
-        cidadeEndereco:
-          type: string
-        UFEndereco:
-          type: string
-    Users:
-      type: array
-      items:
-        $ref: "#/components/schemas/User"
-            
+        Endereco:
+          $ref: "#/components/schemas/Adress"
+          
     Request:
       type: object
       properties:
         idCliente:
-          type: integer
-        ruaEndereco:
           type: string
-        numeroEndereco:
-          type: string
-        complementoEndereco:
-          type: string
-        cepEndereco:
-          type: string
-        cidadeEndereco:
-          type: string
-        UFEndereco:
-          type: string
+          format: uuid
+        Endereco:
+          $ref: "#/components/schemas/Adress"
         listaPedidos:
           type: array
           items:
             type: object
             properties:
               idProduto: 
-                type: integer
+                type: string
+                format: uuid
               quantidadeProduto:
                 type: integer
               valorDesconto:
