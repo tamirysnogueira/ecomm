@@ -10,33 +10,24 @@ servers:
 - url: http://localhost:3000/
   description: API Ecomm
 paths:
-  /categories:
+  /api/categories:
     get:
-      summary: Lista todos os produtos do Ecomm
+      summary: Lista todas as categorias do Ecomm
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    nome:
-                      type: string
-                    status:
-                      type: string
+                $ref: "#/components/schemas/Categories"
         404:
-          description: 'Erro. Não foi achado nenhum produto'
-          content:
-            application/json:
-              example: "Not found"
-  /admin/categories:
+          $ref: "#/components/responses/404NaoEncontrado"
+      tags: 
+        - Categories
+    
+  /api/admin/categories:
     post:
-      summary: Criar novo produto
+      summary: Criar nova categoria
       requestBody:
         content:
           application/json:
@@ -51,15 +42,11 @@ paths:
           content:
             application/json:
               schema:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    nome:
-                      type: string
-                    status:
-                      type: string
-  /categories/{id}:
+                  $ref: "#/components/schemas/Categories"
+      tags: 
+        - Categories
+        
+  /api/categories/{id}:
     parameters: 
       - name: id
         in: path
@@ -67,18 +54,389 @@ paths:
           type: integer
         required: true
     get:
-      summary: Lista o produto pelo Id
+      summary: Detalhar a categoria
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  nome:
-                    type: string
-                  status:
-                    type: string
+                $ref: "#/components/schemas/Categorie"
+        404:
+          $ref: "#/components/responses/404NaoEncontrado"
+      tags: 
+        - Categories
+    
+    patch:
+        summary: Ativa  uma categoria pelo Id
+        responses:
+          200:
+            description: Sucesso
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Categorie'
+        tags: 
+        - Categories
+        
+  /api/admin/categories/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    put:
+      summary: Atualizar categoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                status:
+                  type: string
+      responses:
+        200:
+          description: Sucesso
+      tags: 
+        - Categories
+    delete:
+      summary: Deletar categoria 
+      responses:
+        200:
+          description: Categoria deletada
+        404:
+          description: Categoria não encontrada
+      tags: 
+        - Categories
+        
+  
+  /api/produtos:
+    get:
+      summary: Lista todos os produtos do Ecomm
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categories"
+        404:
+          $ref: "#/components/responses/404NaoEncontrado"
+      tags: 
+        - Products
+  
+  /api/produtos/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      summary: Lista o produto pelo Id do Ecomm
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categories"
+        404:
+          $ref: "#/components/responses/404NaoEncontrado"
+      tags: 
+        - Products
+
+  /api/admin/produtos:
+    post:
+      summary: Insere produtos no ecomm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Products"
+      tags: 
+        - Products
+  
+  /api/admin/produtos/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    put:
+      summary: Atualiza um produto pelo Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        200:
+          description: Sucesso
+      tags: 
+        - Products
+    delete:
+      summary: Deletar produto 
+      responses:
+        200:
+          description: Produto deletado
+        404:
+          description: Produto não encontrado
+      tags: 
+        - Products
+        
+        
+  /api/admin/users:
+    post:
+      summary: Insere usuário no ecomm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/User"
+      tags: 
+        - Users
+    
+    get:
+      summary: Lista todos os usuários do Ecomm
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        404:
+          $ref: "#/components/responses/404NaoEncontrado"
+      tags: 
+        - Users
+  
+  /api/admin/users/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    put:
+      summary: Atualiza um usuário pelo Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        200:
+          description: Sucesso
+      tags: 
+        - Users
+    
+    delete:
+      summary: Deletar usuário 
+      responses:
+        200:
+          description: Usuário deletado
+        404:
+          description: Usuário não encontrado
+      tags: 
+        - Users
+  
+  /api/users/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+        
+    get:
+      summary: Detalha o usuário pelo Id
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          $ref: "#/components/responses/404NaoEncontrado"
+      tags: 
+        - Users
+        
+        
+  /api/requests:
+    post:
+      summary: Insere pedido no ecomm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Request"
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Request"
+      tags: 
+        - Requests
+  
+  /api/requests/{id}:
+    parameters: 
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    
+    get:
+      summary: Lista o pedido pelo Id
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Request"
+        404:
+          $ref: "#/components/responses/404NaoEncontrado"
+      tags: 
+        - Requests
+      
+  
+                  
+components:
+  schemas:
+    Categorie:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        status:
+          type: string
+    Categories:
+      type: array
+      items: 
+        $ref: "#/components/schemas/Categorie"
+        
+    
+    Product:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        slug:
+          type: string
+        precoUnitario:
+          type: number
+          format: double
+        quantidadeEstoque:
+          type: integer
+        categoria:
+            $ref: "#/components/schemas/Categorie"
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+              
+          
+    User:
+      type: object
+      properties:
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        ruaEndereco:
+          type: string
+        numeroEndereco:
+          type: string
+        complementoEndereco:
+          type: string
+        cepEndereco:
+          type: string
+        cidadeEndereco:
+          type: string
+        UFEndereco:
+          type: string
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+            
+    Request:
+      type: object
+      properties:
+        idCliente:
+          type: integer
+        ruaEndereco:
+          type: string
+        numeroEndereco:
+          type: string
+        complementoEndereco:
+          type: string
+        cepEndereco:
+          type: string
+        cidadeEndereco:
+          type: string
+        UFEndereco:
+          type: string
+        listaPedidos:
+          type: array
+          items:
+            type: object
+            properties:
+              idProduto: 
+                type: integer
+              quantidadeProduto:
+                type: integer
+              valorDesconto:
+                type: number
+                format: double
+              precoProduto:
+                type: number
+                format: double
+            
+  responses:
+    404NaoEncontrado:    
+      description: O item especificado não foi encontrado.
+
+tags:
+  - name: Categories
+    description: Tudo sobre as categorias do ecomm
+  - name: Products
+    description: Tudo sobre os produtos do ecomm
+  - name: Users
+    description: Tudo sobre os usuários do ecomm
+  - name: Requests
+    description: Tudo sobre os pedidos no ecomm
