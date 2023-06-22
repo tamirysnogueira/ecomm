@@ -1,15 +1,15 @@
-use('ecomm') 
+import productsJSON from '../products/ecomm-products.json';
 
-const productsJSON = require('../products/ecomm-products.json')
+use('ecomm');
 
-productsJSON.forEach((product) => {
-    if(Object.hasOwn(product, 'preco')) {
-        const tranformPriceToDecimal = NumberDecimal(product.preco.toFixed(2))
-        product.preco = tranformPriceToDecimal
-    }
-    
-})
+forEach((product) => {
+  if (Object.hasOwn(product, 'preco')) {
+    const objectProduct = product;
+    const tranformPriceToDecimal = NumberDecimal(product.preco.toFixed(2));
+    objectProduct.preco = tranformPriceToDecimal;
+  }
+});
 
-const insertProductsInDb = db.products.insertMany(productsJSON)
+const insertProductsInDb = db.products.insertMany(productsJSON);
 
-console.log(insertProductsInDb)
+console.log(insertProductsInDb);
