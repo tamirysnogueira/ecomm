@@ -7,8 +7,8 @@ const categoriesSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator(v) {
-          const noNumbersInString = /[0-9]/;
-          return !(noNumbersInString.test(v));
+          const regexRule = /^[^0-9]/;
+          return (regexRule.test(v));
         },
         message: (props) => `${props.value} não é um nome válido!`,
       },
