@@ -56,7 +56,7 @@ paths:
       - name: id
         in: path
         schema:
-          type: integer
+          type: string
         required: true
     get:
       summary: Detalhar a categoria
@@ -89,7 +89,7 @@ paths:
       - name: id
         in: path
         schema:
-          type: integer
+          type: string
         required: true
     put:
       summary: Atualizar categoria
@@ -129,7 +129,6 @@ paths:
           required: false
           schema:
             type: string
-            format: uuid
         - name: minPriceOfProduct
           in: query
           description: Preço mínimo do produto
@@ -163,7 +162,6 @@ paths:
                       properties:
                         _id:
                           type: string
-                          format: uuid
                         dataPedido:
                           type: string
                           format: date
@@ -178,7 +176,7 @@ paths:
       - name: id
         in: path
         schema:
-          type: integer
+          type: string
         required: true
     get:
       summary: Lista o produto pelo Id do Ecomm
@@ -193,7 +191,6 @@ paths:
                     properties:
                       _id:
                         type: string
-                        format: uuid
                       dataPedido:
                         type: string
                         format: date
@@ -229,7 +226,7 @@ paths:
       - name: id
         in: path
         schema:
-          type: integer
+          type: string
         required: true
     put:
       summary: Atualiza um produto pelo Id
@@ -287,7 +284,6 @@ paths:
                       properties:
                         _id:
                           type: string
-                          format: uuid
                     - $ref: "#/components/schemas/User"
         404:
           $ref: "#/components/responses/404NaoEncontrado"
@@ -299,7 +295,7 @@ paths:
       - name: id
         in: path
         schema:
-          type: integer
+          type: string
         required: true
     put:
       summary: Atualiza um usuário pelo Id
@@ -329,7 +325,7 @@ paths:
       - name: id
         in: path
         schema:
-          type: integer
+          type: string
         required: true
         
     get:
@@ -345,7 +341,6 @@ paths:
                     properties:
                       _id:
                         type: string
-                        format: uuid
                   - $ref: "#/components/schemas/User"
         404:
           $ref: "#/components/responses/404NaoEncontrado"
@@ -376,7 +371,7 @@ paths:
       - name: id
         in: path
         schema:
-          type: integer
+          type: string
         required: true
     
     get:
@@ -402,7 +397,6 @@ components:
       properties:
         id:
           type: string
-          format: uuid
         nome:
           type: string
         status:
@@ -417,13 +411,14 @@ components:
           type: string
         slug:
           type: string
-        precoUnitario:
+        preco:
           type: number
           format: double
-        quantidadeEstoque:
+        quantidade:
           type: integer
         categoria:
-            $ref: "#/components/schemas/Categorie"
+            type: string 
+                
     
     Adress:
       type: object
@@ -462,7 +457,6 @@ components:
       properties:
         idCliente:
           type: string
-          format: uuid
         Endereco:
           $ref: "#/components/schemas/Adress"
         listaPedidos:
@@ -472,7 +466,6 @@ components:
             properties:
               idProduto: 
                 type: string
-                format: uuid
               quantidadeProduto:
                 type: integer
               valorDesconto:
