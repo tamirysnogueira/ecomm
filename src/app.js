@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import db from '../mongo/dbConfig.js';
+import db from './dbConfig/dbConfig.js';
 import routes from './routes/index.js';
 
 db.on('error', console.log.bind(console, 'Erro de conexão'));
