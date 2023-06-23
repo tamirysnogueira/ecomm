@@ -30,7 +30,7 @@ class ProductsController {
 
       const createdProduct = await productSchema.save();
 
-      res.status(200).json(createdProduct);
+      res.status(201).json(createdProduct);
     } catch (error) {
       res.status(404).send({ message: `${error.message} - falha ao cadastrar o produto!` });
     }
@@ -42,7 +42,7 @@ class ProductsController {
       const bodyOfProductToBeUpdated = req.body;
       await Products.findByIdAndUpdate(id, bodyOfProductToBeUpdated).exec();
 
-      res.status(200).send('Produto atualizado com sucesso!');
+      res.status(200).json({ message: 'Produto atualizado com sucesso!' });
     } catch (error) {
       res.status(404).send({ message: `${error.message} - Produto não encontrado!` });
     }
@@ -55,7 +55,7 @@ class ProductsController {
 
       if (productDeleted === null) throw new Error();
 
-      res.status(200).send('Produato deletado com sucesso!');
+      res.status(200).json({ message: 'Produto deletado com sucesso!' });
     } catch (error) {
       res.status(404).send({ message: `${error.message} - Produto não encontrado!` });
     }

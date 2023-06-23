@@ -38,9 +38,9 @@ class CategoriesController {
     try {
       const { id } = req.params;
       const bodyOfCategoryToBeUpdated = req.body;
-      Categories.findByIdAndUpdate(id, bodyOfCategoryToBeUpdated);
+      await Categories.findByIdAndUpdate(id, bodyOfCategoryToBeUpdated).exec();
 
-      res.status(200).send('Categoria atualizada com sucesso!');
+      res.status(200).json({ message: 'Categoria atualizada com sucesso!' });
     } catch (error) {
       res.status(404).send({ message: `${error.message} - Categoria não encontrada!` });
     }
@@ -53,7 +53,7 @@ class CategoriesController {
 
       if (categoryDeleted === null) throw new Error();
 
-      res.status(200).send('Categoria deletada com sucesso!');
+      res.status(200).json({ message: 'Categoria deletada com sucesso!' });
     } catch (error) {
       res.status(404).send({ message: `${error.message} Categoria não encontrada!` });
     }
