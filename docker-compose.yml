@@ -2,7 +2,17 @@ version: '3.9'
 
 services:
   ecomm:
-    image: tamirysnogueira/ecomm:1.0
+    build: .
+    container_name: node-ecomm
+    image: tamirysnogueira/ecomm:1.1
+    networks:
+      - mongo-app
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo-ecomm
+    environment:
+      HOST_MONGO: mongo-ecomm
   
   mongo-ecomm:
     image: mongo
@@ -18,7 +28,12 @@ services:
       - type: bind
         source: $HOST/C:/alura/sprints/sprint2/ecomm/mongo
         target: /mongo-scripts
+    networks:
+      - mongo-app
 
+networks:
+  mongo-app:
+    driver: bridge
 
 volumes:
   db-mongo-ecomm:
